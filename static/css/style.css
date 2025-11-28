@@ -1,0 +1,64 @@
+/* Custom Styles for JENGAMART */
+
+:root {
+    --primary-blue: #0d6efd;
+    --secondary-silver: #adb5bd;
+    --dark-charcoal: #343a40;
+    --light-gray: #f8f9fa;
+}
+
+/* Navbar */
+.navbar-dark {
+    background-color: var(--dark-charcoal) !important;
+}
+
+.navbar-brand {
+    font-weight: bold;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: var(--primary-blue);
+    border-color: var(--primary-blue);
+}
+
+.btn-primary:hover {
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+}
+
+.btn-outline-success {
+    color: var(--primary-blue);
+    border-color: var(--primary-blue);
+}
+
+.btn-outline-success:hover {
+    background-color: var(--primary-blue);
+    color: white;
+}
+
+
+/* Footer */
+.footer {
+    background-color: var(--light-gray);
+    border-top: 1px solid #dee2e6;
+}
+
+/* Cards */
+.card {
+    border: 1px solid #dee2e6;
+    transition: box-shadow .3s ease-in-out;
+}
+
+.card:hover {
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+}
+
+.card-title {
+    color: var(--dark-charcoal);
+}
+
+/* Jumbotron */
+.bg-light.rounded-3 {
+    border: 1px solid #dee2e6;
+}

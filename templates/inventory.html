@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Inventory - JENGAMART{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h1>Our Inventory</h1>
+    </div>
+    <div class="col-md-6">
+        <form class="d-flex" action="{{ url_for('inventory') }}" method="get">
+            <input class="form-control me-2" type="search" placeholder="Search for products..." aria-label="Search" name="search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+    </div>
+</div>
+
+{% for category in categories %}
+<div class="mb-5">
+    <h2>{{ category.name }}</h2>
+    <hr>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for product in products_by_category[category.name] %}
+        <div class="col">
+            <div class="card h-100">
+                <img src="{{ url_for('static', filename='images/' + product.image_file if product.image_file else 'images/placeholder.jpg') }}" class="card-img-top" alt="{{ product.name }}" style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title"><a href="{{ url_for('product', product_id=product.id) }}" class="text-decoration-none">{{ product.name }}</a></h5>
+                    <p class="card-text">{{ product.price }}</p>
+                    <form action="{{ url_for('add_to_cart', product_id=product.id) }}" method="post">
+                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="col">
+            <p>No products in this category.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

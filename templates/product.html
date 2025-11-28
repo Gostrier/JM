@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ product.name }} - JENGAMART{% endblock %}
+
+{% block content %}
+<div class="row">
+    <!-- Product Details -->
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="row g-0">
+                <div class="col-md-6">
+                    <img src="{{ url_for('static', filename='images/' + product.image_file) }}" class="img-fluid rounded-start" alt="{{ product.name }}">
+                </div>
+                <div class="col-md-6">
+                    <div class="card-body">
+                        <h1 class="card-title">{{ product.name }}</h1>
+                        <p class="card-text text-muted h4">{{ product.price }}</p>
+                        <p class="card-text mt-4">This is a placeholder for the product description. Here you would find more detailed information about the quality, dimensions, and recommended uses for {{ product.name }}.</p>
+                        <form action="{{ url_for('add_to_cart', product_id=product.id) }}" method="post" class="mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg">Add to Cart</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar/Contact Info -->
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Need help with your order?</h5>
+                <p>Our expert staff is here to help you find the right materials for your project.</p>
+                <p><b>Email:</b> contact@jengamart.com</p>
+                <p><b>Phone:</b> +254 700 000 000</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Related Products -->
+<div class="row mt-5">
+    <div class="col-12">
+        <h2 class="mb-4">Related Products</h2>
+    </div>
+    {% if related_products %}
+        {% for rel_product in related_products %}
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <a href="{{ url_for('product', product_id=rel_product.id) }}">
+                    <img src="{{ url_for('static', filename='images/' + rel_product.image_file) }}" class="card-img-top" alt="{{ rel_product.name }}" style="height: 150px; object-fit: cover;">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title"><a href="{{ url_for('product', product_id=rel_product.id) }}" class="text-decoration-none">{{ rel_product.name }}</a></h5>
+                    <p class="card-text">{{ rel_product.price }}</p>
+                </div>
+                <div class="card-footer bg-transparent border-0">
+                     <form action="{{ url_for('add_to_cart', product_id=rel_product.id) }}" method="post">
+                        <button type="submit" class="btn btn-sm btn-primary">Add to Cart</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="col">
+            <p>No related products found.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

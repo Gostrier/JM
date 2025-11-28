@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Your Profile - JENGAMART{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <h1 class="text-center mb-4">User Profile</h1>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">John Doe</h5>
+                <p class="card-text">john.doe@example.com</p>
+                <p class="card-text">Shipping Address: 123 Main St, Anytown, USA</p>
+                <a href="#" class="btn btn-primary">Edit Profile</a>
+            </div>
+        </div>
+        <h2 class="mt-5">Order History</h2>
+        <ul class="list-group">
+            <li class="list-group-item">Order #1234 - 2 items - 5,000 KSh</li>
+            <li class="list-group-item">Order #5678 - 1 item - 1,200 KSh</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
