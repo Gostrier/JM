@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Bulk Product Updates - JENGAMART{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Bulk Product Updates</h1>
+    <p>Use these forms to apply updates to all products at once.</p>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <div class="card mb-4">
+        <div class="card-header">
+            Update Featured Status
+        </div>
+        <div class="card-body">
+            <form action="{{ url_for('admin.bulk_update_featured') }}" method="post">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <div class="mb-3">
+                    <label for="featured_status" class="form-label">Set 'featured' status for all products</label>
+                    <select class="form-select" id="featured_status" name="featured_status">
+                        <option value="1">Featured</option>
+                        <option value="0">Not Featured</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Update Featured Status</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            Update Prices
+        </div>
+        <div class="card-body">
+            <form action="{{ url_for('admin.bulk_update_prices') }}" method="post">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <div class="mb-3">
+                    <label for="price_update_percentage" class="form-label">Update all prices by a percentage</label>
+                    <div class="input-group">
+                        <input type="number" class="form-control" id="price_update_percentage" name="price_update_percentage" step="0.01" required>
+                        <span class="input-group-text">%</span>
+                    </div>
+                    <div class="form-text">
+                        Enter a positive percentage (e.g., 10 for a 10% increase) or a negative percentage (e.g., -5 for a 5% decrease).
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Update Prices</button>
+            </form>
+        </div>
+    </div>
+    
+    <div class="mt-4">
+        <a href="{{ url_for('admin.admin_dashboard') }}" class="btn btn-secondary">Back to Admin Dashboard</a>
+    </div>
+</div>
+{% endblock %}

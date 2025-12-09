@@ -1,4 +1,5 @@
 import sqlite3
+import re
 
 def get_db_connection():
     """Establishes a connection to the database."""
@@ -25,7 +26,7 @@ def init_db():
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
             category_id INTEGER NOT NULL,
-            price TEXT NOT NULL,
+            price REAL NOT NULL,
             description TEXT,
             image_file TEXT,
             featured INTEGER DEFAULT 0,
@@ -38,7 +39,8 @@ def init_db():
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             username TEXT NOT NULL UNIQUE,
             email TEXT NOT NULL UNIQUE,
-            password_hash TEXT NOT NULL
+            password_hash TEXT NOT NULL,
+            is_admin BOOLEAN DEFAULT 0
         )
     ''')
     conn.commit()
@@ -83,13 +85,22 @@ def populate_db():
         cursor.execute("SELECT id FROM categories WHERE name = ?", (product['category'],))
         category_id = cursor.fetchone()['id']
 
+        # Extract numeric part from price string (e.g., "885 KSh" -> 885.0)
+        price_str = product['price']
+        numeric_price = 0.0
+        
+        match = re.match(r'[\d,\.]+', price_str)
+        if match:
+            # Remove commas, then convert to float
+            numeric_price = float(match.group(0).replace(',', ''))
+        
         # Insert product
         cursor.execute(
             "INSERT INTO products (name, category_id, price, image_file, featured) VALUES (?, ?, ?, ?, ?)",
             (
                 product['name'],
                 category_id,
-                product['price'],
+                numeric_price, # Use the converted numeric price
                 "placeholder.jpg",
                 product.get('featured', 0)
             )

@@ -1,64 +1,143 @@
-/* Custom Styles for JENGAMART */
-
 :root {
-    --primary-blue: #0d6efd;
-    --secondary-silver: #adb5bd;
-    --dark-charcoal: #343a40;
-    --light-gray: #f8f9fa;
+    --bs-body-color: #212529; /* Dark text for light theme */
+    --bs-body-bg: #fff; /* White background for light theme */
+    --bs-card-bg: #fff;
+    --bs-card-color: #212529;
+    --bs-border-color: #dee2e6;
+    --bs-heading-color: #212529;
+    --bs-link-color: #0d6efd;
+    --bs-link-hover-color: #0a58ca;
 }
 
-/* Navbar */
-.navbar-dark {
-    background-color: var(--dark-charcoal) !important;
+.dark-theme {
+    --bs-body-color: #dee2e6; /* Light text for dark theme */
+    --bs-body-bg: #212529; /* Dark background for dark theme */
+    --bs-card-bg: #343a40;
+    --bs-card-color: #dee2e6;
+    --bs-border-color: #495057;
+    --bs-heading-color: #f8f9fa;
+    --bs-link-color: #0dcaf0; /* Light blue for links in dark theme */
+    --bs-link-hover-color: #31d2f2;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
+}
+
+.card {
+    background-color: var(--bs-card-bg);
+    color: var(--bs-card-color);
+    border-color: var(--bs-border-color);
+}
+
+.card-header {
+    background-color: var(--bs-card-bg); /* Use card background for header */
+    border-bottom-color: var(--bs-border-color);
+}
+
+a {
+    color: var(--bs-link-color);
+}
+
+a:hover {
+    color: var(--bs-link-hover-color);
+}
+
+.navbar {
+    background-color: var(--bs-body-bg) !important;
 }
 
 .navbar-brand {
-    font-weight: bold;
+    color: var(--bs-heading-color) !important;
 }
 
-/* Buttons */
-.btn-primary {
-    background-color: var(--primary-blue);
-    border-color: var(--primary-blue);
+.nav-link {
+    color: var(--bs-body-color) !important;
 }
 
-.btn-primary:hover {
-    background-color: #0b5ed7;
-    border-color: #0a58ca;
+.navbar-toggler-icon {
+    filter: invert(var(--bs-body-bg-inverse-filter, 0));
 }
 
-.btn-outline-success {
-    color: var(--primary-blue);
-    border-color: var(--primary-blue);
+.dropdown-menu {
+    background-color: var(--bs-card-bg);
+    border-color: var(--bs-border-color);
 }
 
-.btn-outline-success:hover {
-    background-color: var(--primary-blue);
-    color: white;
+.dropdown-item {
+    color: var(--bs-body-color);
 }
 
-
-/* Footer */
-.footer {
-    background-color: var(--light-gray);
-    border-top: 1px solid #dee2e6;
+.dropdown-item:hover {
+    background-color: var(--bs-body-bg);
 }
 
-/* Cards */
-.card {
-    border: 1px solid #dee2e6;
-    transition: box-shadow .3s ease-in-out;
+.hero-section {
+    color: var(--bs-heading-color);
 }
 
-.card:hover {
-    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+.list-group-item {
+    background-color: var(--bs-card-bg);
+    color: var(--bs-body-color);
+    border-color: var(--bs-border-color);
 }
 
-.card-title {
-    color: var(--dark-charcoal);
+.list-group-item.active {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+    color: var(--bs-white);
 }
 
-/* Jumbotron */
-.bg-light.rounded-3 {
-    border: 1px solid #dee2e6;
+/* Specific styles for theme switcher */
+.theme-switch-wrapper {
+    display: flex;
+    align-items: center;
+    margin-right: 1rem;
+}
+.theme-switch {
+    display: inline-block;
+    height: 34px;
+    position: relative;
+    width: 60px;
+}
+.theme-switch input {
+    display: none;
+}
+.slider {
+    background-color: #ccc;
+    bottom: 0;
+    cursor: pointer;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: .4s;
+}
+.slider:before {
+    background-color: #fff;
+    bottom: 4px;
+    content: "";
+    height: 26px;
+    left: 4px;
+    position: absolute;
+    transition: .4s;
+    width: 26px;
+}
+input:checked + .slider {
+    background-color: #66bb6a;
+}
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+.slider.round {
+    border-radius: 34px;
+}
+.slider.round:before {
+    border-radius: 50%;
+}
+.theme-text {
+    color: var(--bs-body-color);
+    margin-left: 10px;
 }
